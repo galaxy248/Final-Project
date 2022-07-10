@@ -188,20 +188,6 @@ public:
 		return this;
 	}
 
-	// Error --> float * Matrix
-	// example -> 2 * a
-	/*float operator*(Matrix m)
-	{
-		for (int i = 0; i < this->matrixRow; i++) {
-			double* tempRow = &(this->myMatrix[i * this->matrixCol]);
-			for (int j = 0; j < this->matrixCol; j++) {
-				double* element = &tempRow[j];
-				(*element);
-			}
-		}
-		return this;
-	}*/
-
 	Matrix* operator*=(float p)
 	{
 		for (int i = 0; i < this->matrixRow; i++) {
@@ -218,6 +204,7 @@ public:
 	{
 		delete[] myMatrix;
 	}
+
 };
 
 int main()
