@@ -136,15 +136,16 @@ public:
 		if (m->matrixCol != this->matrixRow || m->matrixRow != this->matrixCol)
 			throw 1;
 
-		static Matrix temp(this->matrixRow, this->matrixRow);
+		static Matrix temp(this->matrixRow, this->matrixCol);
+		temp = *this;
 		Matrix mTemp = *m;
-		for (int i = 0; i < this->matrixRow; i++) {
-			double* tempRow = &(this->myMatrix[i * this->matrixCol]);
+		for (int i = 0; i < temp.matrixRow; i++) {
+			double* tempRow = &(temp.myMatrix[i * temp.matrixCol]);
 			double ans = 0;
 			static int jTemp = 0;
 			for (int z = 0; z < m->matrixCol; z++) {
 				ans = 0;
-				for (int j = 0; j < this->matrixCol; j++) {
+				for (int j = 0; j < temp.matrixCol; j++) {
 					double* element = &tempRow[j];
 					ans += (*element) * (mTemp[j][z]);
 				}
@@ -161,27 +162,31 @@ public:
 		if (m->matrixRow != this->matrixRow || m->matrixCol != this->matrixCol)
 			throw 2;
 
+		static Matrix temp(this->matrixRow, this->matrixCol);
+		temp = *this;
 		Matrix mTemp = *m;
-		for (int i = 0; i < this->matrixRow; i++) {
-			double* tempRow = &(this->myMatrix[i * this->matrixCol]);
-			for (int j = 0; j < this->matrixCol; j++) {
+		for (int i = 0; i < temp.matrixRow; i++) {
+			double* tempRow = &(temp.myMatrix[i * temp.matrixCol]);
+			for (int j = 0; j < temp.matrixCol; j++) {
 				double* element = &tempRow[j];
 				(*element) += (mTemp[i][j]);
 			}
 		}
-		return this;
+		return &temp;
 	}
 
 	Matrix* operator*(float p)
 	{
-		for (int i = 0; i < this->matrixRow; i++) {
-			double* tempRow = &(this->myMatrix[i * this->matrixCol]);
-			for (int j = 0; j < this->matrixCol; j++) {
+		static Matrix temp(this->matrixRow, this->matrixCol);
+		temp = *this;
+		for (int i = 0; i < temp.matrixRow; i++) {
+			double* tempRow = &(temp.myMatrix[i * temp.matrixCol]);
+			for (int j = 0; j < temp.matrixCol; j++) {
 				double* element = &tempRow[j];
 				(*element) *= p;
 			}
 		}
-		return this;
+		return &temp;
 	}
 
 	Matrix* operator*=(float p)
@@ -285,9 +290,19 @@ int main()
 		cout << "\n";
 
 		a *= 2;
+		a *= 2;
 		cout << "Matrix a*2*2 :\n";
 		a.print();
 		cout << "\n";
+
+		cout << "Matrix (a*2*2) * (e)";
+		(a * &e)->print();
+		cout << "\n";
+
+		cout << "Matrix e :\n";
+		e.print();
+		cout << "\n";
+
 		cout << "Matrix a*e :\n";
 		h->print();
 		cout << "\n";
