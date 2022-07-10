@@ -5,8 +5,8 @@ using namespace std;
 class Matrix
 {
 private:
-	double* myMatrix{};
-	int matrixRow{}, matrixCol{};
+	double* myMatrix;
+	int matrixRow, matrixCol;
 
 public:
 	Matrix(int row = 1, int col = 1)
@@ -23,10 +23,6 @@ public:
 				double* tempRow = &myMatrix[count * col];
 				for (int inner_count = 0; inner_count < col; inner_count++) {
 					double* element = &tempRow[inner_count];
-					if (count == 1 && inner_count == 4) {
-						*element = 8;
-						continue;
-					}
 					*element = k;
 					k++;
 				}
