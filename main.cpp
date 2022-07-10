@@ -295,7 +295,7 @@ int main()
 		a.print();
 		cout << "\n";
 
-		cout << "Matrix (a*2*2) * (e)";
+		cout << "Matrix (a*2*2) * (e)\n";
 		(a * &e)->print();
 		cout << "\n";
 
